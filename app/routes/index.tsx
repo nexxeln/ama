@@ -1,7 +1,8 @@
 export default function Index() {
   return (
     <main>
-      <h1 className="text-red-800">Hello World</h1>
+      <div className="mt-4" />
+      <h1 className="text-sky-200 text-2xl">nexxel • ama</h1>
     </main>
   );
 }
