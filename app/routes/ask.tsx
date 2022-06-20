@@ -1,4 +1,17 @@
+import { ActionFunction } from "@remix-run/node";
 import { Form } from "@remix-run/react";
+
+import { createQuestion } from "~/question.server";
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const name = formData.get("name");
+  const question = formData.get("question");
+
+  await createQuestion({ name, question });
+
+  return new Response(null);
+};
 
 const inputStyles =
   "px-4 py-2 border-2 rounded-md bg-zinc-800 focus:outline-none border-zinc-800 focus:ring-2 focus:ring-sky-300";
