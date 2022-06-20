@@ -1,6 +1,5 @@
 import { ActionFunction } from "@remix-run/node";
 import { Form } from "@remix-run/react";
-
 import { createQuestion } from "~/question.server";
 
 export const action: ActionFunction = async ({ request }) => {
