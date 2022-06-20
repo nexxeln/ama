@@ -13,7 +13,7 @@ datasource db {
 model question {
   id         String   @id @default(cuid())
   createdAt  DateTime @default(now())
-  user       String
+  name       String
   question   String   @db.String(150)
   answer     String?
   isAnswered Boolean  @default(false)
