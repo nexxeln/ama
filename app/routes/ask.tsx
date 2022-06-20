@@ -3,20 +3,27 @@ import { Form, useActionData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { createQuestion } from "~/question.server";
 
+type ActionData =
+  | {
+      name: string | null;
+      question: string | null;
+    }
+  | undefined;
+
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
   const name = formData.get("name");
   const question = formData.get("question");
 
-  const errors = {
+  const errors: ActionData = {
     name: name ? null : "Name is required",
     question: question ? null : "Question is required",
   };
 
   const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
   if (hasErrors) {
-    return json(errors);
+    return json<ActionData>(errors);
   }
 
   invariant(typeof name === "string", "name must be a string");
@@ -31,7 +38,7 @@ const inputStyles =
   "px-4 py-2 border-2 rounded-md bg-zinc-800 focus:outline-none border-zinc-800 focus:ring-2 focus:ring-sky-300";
 
 export default function Ask() {
-  const errors = useActionData();
+  const errors = useActionData() as ActionData;
 
   return (
     <Form method="post">
