@@ -1,4 +1,5 @@
-import { ActionFunction, json } from "@remix-run/node";
+import type { ActionFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { createQuestion } from "~/question.server";

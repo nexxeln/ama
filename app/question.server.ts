@@ -1,4 +1,4 @@
-import { question } from "@prisma/client";
+import type { question } from "@prisma/client";
 import { prisma } from "./db.server";
 
 export const createQuestion = async (
