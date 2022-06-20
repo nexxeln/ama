@@ -1,5 +1,6 @@
 import { ActionFunction, json } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
+import invariant from "tiny-invariant";
 import { createQuestion } from "~/question.server";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -17,6 +18,9 @@ export const action: ActionFunction = async ({ request }) => {
   if (hasErrors) {
     return json(errors);
   }
+
+  invariant(typeof name === "string", "name must be a string");
+  invariant(typeof question === "string", "question must be a string");
 
   await createQuestion({ name, question });
 
