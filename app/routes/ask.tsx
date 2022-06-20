@@ -1,11 +1,22 @@
-import { ActionFunction } from "@remix-run/node";
-import { Form } from "@remix-run/react";
+import { ActionFunction, json } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
 import { createQuestion } from "~/question.server";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
+
   const name = formData.get("name");
   const question = formData.get("question");
+
+  const errors = {
+    name: name ? null : "Name is required",
+    question: question ? null : "Question is required",
+  };
+
+  const hasErrors = Object.values(errors).some((errorMessage) => errorMessage);
+  if (hasErrors) {
+    return json(errors);
+  }
 
   await createQuestion({ name, question });
 
@@ -16,6 +27,8 @@ const inputStyles =
   "px-4 py-2 border-2 rounded-md bg-zinc-800 focus:outline-none border-zinc-800 focus:ring-2 focus:ring-sky-300";
 
 export default function Ask() {
+  const errors = useActionData();
+
   return (
     <Form method="post">
       <main className="mt-8 text-sky-100">
@@ -23,19 +36,23 @@ export default function Ask() {
 
         <div className="mb-2" />
         <div className="flex flex-col">
+          {errors?.name ? (
+            <span className="text-sm text-red-500">{errors.name}</span>
+          ) : null}
           <input
             id="name"
             name="name"
-            required
             type="text"
             placeholder="Your Name"
             className={inputStyles}
           />
           <div className="mt-3" />
+          {errors?.question ? (
+            <span className="text-sm text-red-500">{errors.question}</span>
+          ) : null}
           <textarea
             id="question"
             name="question"
-            required
             placeholder="Your Question"
             cols={30}
             rows={10}
