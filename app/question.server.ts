@@ -36,6 +36,7 @@ export const getUnansweredQuestions = async () => {
     select: {
       question: true,
       name: true,
+      id: true,
     },
   });
 };
