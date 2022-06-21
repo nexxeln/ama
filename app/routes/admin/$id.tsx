@@ -45,6 +45,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 
   invariant(params.id, "id is required");
+  invariant(typeof answer === "string", "question must be a string");
 
   await answerQuestion(params.id, answer);
 
