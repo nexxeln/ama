@@ -40,3 +40,17 @@ export const getUnansweredQuestions = async () => {
     },
   });
 };
+
+export const getQuestionById = async (id: string) => {
+  return await prisma.question.findFirst({
+    where: {
+      id: {
+        equals: id,
+      },
+    },
+    select: {
+      name: true,
+      question: true,
+    },
+  });
+};
