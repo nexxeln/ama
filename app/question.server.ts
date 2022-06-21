@@ -54,3 +54,15 @@ export const getQuestionById = async (id: string) => {
     },
   });
 };
+
+export const answerQuestion = async (id: string, answer: string) => {
+  return await prisma.question.update({
+    where: {
+      id,
+    },
+    data: {
+      answer: answer,
+      isAnswered: true,
+    },
+  });
+};
