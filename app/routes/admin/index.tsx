@@ -1,6 +1,32 @@
-import { Form } from "@remix-run/react";
+import type { ActionFunction } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import { Form, useActionData } from "@remix-run/react";
+
+type ActionData =
+  | {
+      password: string | null;
+    }
+  | undefined;
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+
+  const password = formData.get("password");
+
+  console.log("password", password);
+  console.log(process.env.ADMIN_PASSWORD);
+
+  if (!password) {
+    return json<ActionData>({ password: "Password is required" });
+  } else if (password === process.env.ADMIN_PASSWORD) {
+    return redirect("/admin/answer");
+  } else {
+    return json<ActionData>({ password: "Invalid password" });
+  }
+};
 
 export default function Admin() {
+  const errors = useActionData() as ActionData;
   return (
     <Form method="post">
       <div className="mt-6" />
@@ -8,10 +34,15 @@ export default function Admin() {
 
       <div className="mt-3" />
       <div className="flex flex-col text-sky-100">
-        <p>Enter password</p>
+        <p className="text-red-500">{errors?.password}</p>
         <div className="mb-1" />
 
-        <input type="text" placeholder="👀" className="input" />
+        <input
+          name="password"
+          type="password"
+          placeholder="👀"
+          className="input"
+        />
         <div className="mb-3" />
 
         <button
