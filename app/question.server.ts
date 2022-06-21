@@ -9,7 +9,11 @@ export const createQuestion = async (
   });
 };
 
-export const getQuestions = async (getAnswered: boolean) => {
+export const getQuestions = async ({
+  getAnswered,
+}: {
+  getAnswered: boolean;
+}) => {
   if (getAnswered) {
     return await prisma.question.findMany({
       where: {
