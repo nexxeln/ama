@@ -19,6 +19,9 @@ export const getQuestions = async ({
       where: {
         isAnswered: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
   }
 
