@@ -1,7 +1,7 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { Link, useLoaderData } from "@remix-run/react";
 import { getUnansweredQuestions } from "~/question.server";
 import { getSession } from "~/session.server";
 
@@ -25,10 +25,14 @@ export default function Answer() {
     <div className="flex flex-col gap-2">
       {questions.map((question, index) => {
         return (
-          <div key={index} className="flex flex-col">
+          <Link
+            to={`/admin/${question.id}`}
+            key={index}
+            className="flex flex-col"
+          >
             <h2 className="text-sky-400">{question.question}</h2>
             <p className="text-sky-200">- {question.name}</p>
-          </div>
+          </Link>
         );
       })}
     </div>
