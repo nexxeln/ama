@@ -8,6 +8,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (session.get("loggedIn") !== "true") {
     return redirect("/admin");
   }
+
+  return new Response(null);
 };
 
 export default function Answer() {

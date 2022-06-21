@@ -24,3 +24,18 @@ export const getQuestionsForDisplay = async () => {
     },
   });
 };
+
+export const getUnansweredQuestions = async () => {
+  return await prisma.question.findMany({
+    where: {
+      isAnswered: false,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      question: true,
+      name: true,
+    },
+  });
+};
