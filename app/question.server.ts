@@ -9,21 +9,18 @@ export const createQuestion = async (
   });
 };
 
-export const getQuestions = async ({
-  getAnswered,
-}: {
-  getAnswered: boolean;
-}) => {
-  if (getAnswered) {
-    return await prisma.question.findMany({
-      where: {
-        isAnswered: true,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  }
-
-  return await prisma.question.findMany();
+export const getQuestionsForDisplay = async () => {
+  return await prisma.question.findMany({
+    where: {
+      isAnswered: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+    select: {
+      answer: true,
+      question: true,
+      name: true,
+    },
+  });
 };
