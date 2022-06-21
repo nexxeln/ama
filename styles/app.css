@@ -14,3 +14,7 @@ body {
   @apply bg-zinc-900;
   font-family: Poppins;
 }
+
+.input {
+  @apply px-4 py-2 border-2 rounded-md bg-zinc-800 focus:outline-none border-zinc-800 focus:ring-2 focus:ring-sky-300;
+}

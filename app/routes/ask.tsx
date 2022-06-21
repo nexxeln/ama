@@ -35,9 +35,6 @@ export const action: ActionFunction = async ({ request }) => {
   return new Response(null);
 };
 
-const inputStyles =
-  "px-4 py-2 border-2 rounded-md bg-zinc-800 focus:outline-none border-zinc-800 focus:ring-2 focus:ring-sky-300";
-
 export default function Ask() {
   const errors = useActionData() as ActionData;
 
@@ -59,7 +56,7 @@ export default function Ask() {
             name="name"
             type="text"
             placeholder="Your Name"
-            className={inputStyles}
+            className="input"
           />
           <div className="mt-3" />
           {errors?.question ? (
@@ -73,7 +70,7 @@ export default function Ask() {
             rows={10}
             minLength={10}
             maxLength={150}
-            className={inputStyles}
+            className="input"
           />
 
           <div className="mt-4" />
