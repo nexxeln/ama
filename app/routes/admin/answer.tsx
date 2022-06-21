@@ -1,6 +1,11 @@
 import type { LoaderFunction } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
+import { Outlet, useLoaderData } from "@remix-run/react";
+import { getUnansweredQuestions } from "~/question.server";
 import { getSession } from "~/session.server";
+
+type LoaderData = Awaited<ReturnType<typeof getUnansweredQuestions>>;
 
 export const loader: LoaderFunction = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
@@ -9,9 +14,27 @@ export const loader: LoaderFunction = async ({ request }) => {
     return redirect("/admin");
   }
 
-  return new Response(null);
+  const questions = await getUnansweredQuestions();
+
+  return json<LoaderData>(questions);
 };
 
 export default function Answer() {
-  return <div>hi</div>;
+  const questions = useLoaderData() as LoaderData;
+  return (
+    <main className="flex">
+      <div className="flex flex-col gap-2">
+        {questions.map((question, index) => {
+          return (
+            <div key={index} className="flex flex-col">
+              <h2 className="text-sky-400">{question.question}</h2>
+              <p className="text-sky-200">- {question.name}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      <Outlet />
+    </main>
+  );
 }
