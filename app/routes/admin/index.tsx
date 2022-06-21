@@ -17,7 +17,7 @@ export const action: ActionFunction = async ({ request }) => {
   if (!password) {
     return json<ActionData>({ password: "Password is required" });
   } else if (password === process.env.ADMIN_PASSWORD) {
-    const session = await createUserSession("loggedIn");
+    const session = await createUserSession();
 
     return redirect("/admin/answer", {
       headers: { "Set-Cookie": await commitSession(session) },

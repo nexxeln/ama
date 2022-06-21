@@ -10,10 +10,10 @@ const { getSession, commitSession, destroySession } =
     },
   });
 
-const createUserSession = async (data: string) => {
+const createUserSession = async () => {
   const session = await getSession();
 
-  session.set(data, "loggedIn");
+  session.set("loggedIn", "true");
 
   return session;
 };
