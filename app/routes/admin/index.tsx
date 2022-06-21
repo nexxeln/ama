@@ -1,6 +1,7 @@
 import type { ActionFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
+import { commitSession, createUserSession } from "~/session.server";
 
 type ActionData =
   | {
@@ -13,13 +14,14 @@ export const action: ActionFunction = async ({ request }) => {
 
   const password = formData.get("password");
 
-  console.log("password", password);
-  console.log(process.env.ADMIN_PASSWORD);
-
   if (!password) {
     return json<ActionData>({ password: "Password is required" });
   } else if (password === process.env.ADMIN_PASSWORD) {
-    return redirect("/admin/answer");
+    const session = await createUserSession("loggedIn");
+
+    return redirect("/admin/answer", {
+      headers: { "Set-Cookie": await commitSession(session) },
+    });
   } else {
     return json<ActionData>({ password: "Invalid password" });
   }
