@@ -1,12 +1,12 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { getQuestions } from "~/question.server";
+import { getQuestionsForDisplay } from "~/question.server";
 
-type LoaderData = Awaited<ReturnType<typeof getQuestions>>;
+type LoaderData = Awaited<ReturnType<typeof getQuestionsForDisplay>>;
 
 export const loader: LoaderFunction = async () => {
-  const questions = await getQuestions({ getAnswered: true });
+  const questions = await getQuestionsForDisplay();
 
   return json<LoaderData>(questions);
 };
