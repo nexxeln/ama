@@ -1,4 +1,5 @@
 import type { ActionFunction } from "@remix-run/node";
+import { redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, useActionData, useTransition } from "@remix-run/react";
 import invariant from "tiny-invariant";
@@ -32,7 +33,7 @@ export const action: ActionFunction = async ({ request }) => {
 
   await createQuestion({ name, question });
 
-  return new Response(null);
+  return redirect("/");
 };
 
 export default function Ask() {
