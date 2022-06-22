@@ -26,7 +26,7 @@ export default function Answer() {
       {questions.map((question, index) => {
         return (
           <Link
-            to={`/admin/${question.id}`}
+            to={`/admin/answer/${question.id}`}
             key={index}
             className="flex flex-col"
           >
