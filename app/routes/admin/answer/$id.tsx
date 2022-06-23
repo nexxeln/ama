@@ -49,7 +49,7 @@ export const action: ActionFunction = async ({ request, params }) => {
 
   await answerQuestion(params.id, answer);
 
-  return new Response(null);
+  return redirect("/");
 };
 
 export default function Answer() {
