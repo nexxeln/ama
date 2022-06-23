@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 export default function Answer() {
   const questions = useLoaderData() as LoaderData;
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 mt-6">
       {questions.map((question, index) => {
         return (
           <Link
@@ -30,7 +30,7 @@ export default function Answer() {
             key={index}
             className="flex flex-col"
           >
-            <h2 className="text-sky-400">{question.question}</h2>
+            <h2 className="text-2xl text-sky-400">{question.question}</h2>
             <p className="text-sky-200">- {question.name}</p>
           </Link>
         );
