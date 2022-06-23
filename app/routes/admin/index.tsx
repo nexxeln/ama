@@ -15,6 +15,8 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (session.get("loggedIn") === "true") {
     return redirect("/admin/answer");
   }
+
+  return new Response(null);
 };
 
 export const action: ActionFunction = async ({ request }) => {
