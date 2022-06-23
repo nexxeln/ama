@@ -1,13 +1,21 @@
-import type { ActionFunction } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
-import { commitSession, createUserSession } from "~/session.server";
+import { commitSession, createUserSession, getSession } from "~/session.server";
 
 type ActionData =
   | {
       password: string | null;
     }
   | undefined;
+
+export const loader: LoaderFunction = async ({ request }) => {
+  const session = await getSession(request.headers.get("Cookie"));
+
+  if (session.get("loggedIn") === "true") {
+    return redirect("/admin/answer");
+  }
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
