@@ -14,8 +14,6 @@ export const loader: LoaderFunction = async () => {
 export default function Index() {
   const questions = useLoaderData() as LoaderData;
 
-  console.log(questions);
-
   return (
     <main className="w-3/4 mx-auto mt-8 md:w-2/5 text-sky-100">
       {questions.map((question, index) => (
