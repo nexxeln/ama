@@ -22,7 +22,6 @@ export default function Index() {
         <div key={index}>
           <div className="flex items-baseline gap-2">
             <p className="text-2xl text-sky-500">{question.question}</p>
-            <p className="text-sm text-sky-200">{`- ${question.name}`}</p>
           </div>
           <p>{question.answer}</p>
           <div className="mb-4" />
